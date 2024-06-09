@@ -63,9 +63,15 @@ export class DetailsComponent {
 
 
   constructor() {
-    // route.snapshot.params is an Observable, so we need to subscribe to it
-      const housingLocationId = Number(this.route.snapshot.params['id']);
-      this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    // now, get data from the service, it is asynchronous
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+    this.housingService.getHousingLocationById(housingLocationId).then((housingLocation) => {
+      this.housingLocation = housingLocation;
+    });
+      //this is the old way of getting the data
+      // // route.snapshot.params is an Observable, so we need to subscribe to it
+      // const housingLocationId = Number(this.route.snapshot.params['id']);
+      // this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
   }
 
 

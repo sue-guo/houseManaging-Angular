@@ -44,8 +44,14 @@ export class HomeComponent {
 
   housingService: HousingService = inject(HousingService);
   constructor() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
-    this.filteredLocationList = this.housingLocationList;
+    // now, get data from the service, it is asynchronous
+    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+      this.housingLocationList = housingLocationList;
+      this.filteredLocationList = housingLocationList;
+    });
+    //this is the old way of getting the data
+    // this.housingLocationList = this.housingService.getAllHousingLocations();
+    // this.filteredLocationList = this.housingLocationList;
   }
   filterResults(text: String){
     //if the input is empty, show all the results, otherwise show the results that match the input
